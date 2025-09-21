@@ -1,24 +1,24 @@
 const mysql = require('mysql2');
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
   host: 'centerbeam.proxy.rlwy.net',
   user: 'root',
   password: 'JjESEyIPThXsGnxlPmYBTESJkNmIgQYv',
   database: 'railway',
   port: 51597,
-  waitForConnections: true, 
-  connectionLimit: 10,      
-  queueLimit: 0    
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
-
-
-db.connect((err) => {
+// Test the pool connection
+db.getConnection((err, connection) => {
   if (err) {
-    console.error('Error de conexión:', err);
-    throw err;
+    console.error('Error de conexión al pool:', err);
+  } else {
+    console.log('Conectado al pool de MySQL Railway');
+    connection.release(); // devolver la conexión al pool
   }
-  console.log('Conectado a MySQL Railway');
 });
 
 module.exports = db;

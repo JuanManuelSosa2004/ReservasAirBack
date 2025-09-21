@@ -78,4 +78,3 @@ exports.getFullReservationsByExternalUserId = (req, res) => {
         res.status(200).json(results); // 200
     });
 };
-
